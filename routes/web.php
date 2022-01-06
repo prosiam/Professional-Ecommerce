@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserRedirectController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,6 +18,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    return view('dashboard');
-})->name('dashboard');
+// Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
+//     return view('dashboard');
+// })->name('dashboard');
+
+
+/* 
+    This route will let the controller to check the role of the user. According to the role ,the controller will return different dashboard.
+*/
+Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', [UserRedirectController::class,'checkUserType'])->name('dashboard');
